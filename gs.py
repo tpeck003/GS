@@ -5,7 +5,9 @@ def generatePref(first, second, size):
     random.seed()
     newLi = []
     #2d array of preferences to be generated
-    for j in range(size):
+    jk = 0
+    while(jk < size):
+        jk += 1
         column = []
         for i in range(size + 1):
             column.append(0)
@@ -59,7 +61,7 @@ def matchGenerator(mL,fL, size):
         curr = myStack.pop()
         currInd = findInd(maleL, curr)
         for i in range(len(maleL[0])):
-            currF = maleL[currInd[0]][i]
+            currF = maleL[currInd][i]
             if (currF != 0):
                 x = findInd(nMatches, currF)
                 if(x):
