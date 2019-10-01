@@ -10,7 +10,7 @@ def generatePref(first, second, size):
         jk += 1
         column = []
         for i in range(size + 1):
-            column.append(0)
+            column.append("_")
         newLi.append(column)
     for i in range(len(first)):
         usedN = []
@@ -20,7 +20,7 @@ def generatePref(first, second, size):
             while (name in usedN ):
                 name  = second(random.randint(0, ((len(second)) - 1)))
             newLi[i][z] = name
-            usedN[z] = name
+            usedN.append(name)
     return newLi
 
 
@@ -67,21 +67,21 @@ def matchGenerator(mL,fL, size):
                 if(x):
                     m1 = findInd(femaleL,curr)
                     m2 = findInd(femaleL,nMatches[x[0]][0])
-                    if(m1[0] > m2[0]):
+                    if(m1 > m2):
                         print(curr," tried proposing to ",currF, ",it worked")
                         print("She will now be leaving ",nMatches[x[0]][0]," for him")
                         myStack.append(nMatches[x[0]][0])
-                        nMatches[x[0]][0] = curr
-                        maleL[currInd[0]][i] = 0
+                        nMatches[x][0] = curr
+                        maleL[currInd][i] = 0
                         #female that just became matched will be purged from male preferences to ensure she is not proposed to again
 
                     else:
                         print(curr," tried proposing to ",currF, ",it didnt work")
-                        maleL[currInd[0]][i] = 0
+                        maleL[currInd][i] = 0
                         myStack.append(curr)
                 else:
-                    nMatches[x[0]][0] = curr
-                    nMatches[x[0]][1] = currF
+                    nMatches[x][0] = curr
+                    nMatches[x][1] = currF
                     print(curr, " Proposes to", currF)
                     print("She accepts")
     for j in range(sizeL):
