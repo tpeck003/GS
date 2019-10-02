@@ -1,10 +1,10 @@
 import random
-
+import time
 
 def generatePref(first, second, size):
-    random.seed()
+    random.seed(time.time())
     newLi = []
-    #2d array of preferences to be generated
+    #2d list of preferences to be generated
     jk = 0
     while(jk < size):
         jk += 1
@@ -12,23 +12,28 @@ def generatePref(first, second, size):
         for i in range(size + 1):
             column.append("_")
         newLi.append(column)
+    #populates the 2d list we need for list of prefernces
     for i in range(0,size):
         usedN = []
+        #list of used names so we do not have repeats on the prefernce list
         newLi[i][0] = first[i]
-        #newLi[i][1] = second[random.randint(0, size - 1)]
-        #usedN.append(newLi[i][1])
+        #puts the name of the person to have matches generated for as the first index
         for z in range(1,(size + 1)):
             name = second[random.randint(0, size - 1)]
+            #generates a random name
             while (name in usedN ):
                 name  = second[random.randint(0, size - 1)]
-           
+                #retries until an unused name has been generated
             newLi[i][z] = name
             usedN.append(name)
+            #adds name to the used list
     print(newLi)
+    #printing just for test purposes
     return newLi
-
+    #returns this 2d list
 
 def findInd(inList, name):
+    #finds the index of any name inside a list, necessary for many parts of the function below
     retList = [0,0]
     found = 0
     for i in range(len(inList)):
@@ -49,14 +54,6 @@ def matchGenerator(mL,fL, size):
     inFemale = fL
     sizeL = size
     nMatches = []
-    #for j in range(0,sizeL):
-        #column = []
-        #for i in range(2):
-            #column.append("_")
-        #nMatches.append(column)
-    print(nMatches)
-    
-    
     maleL = generatePref(inMale,inFemale, sizeL)
     femaleL = generatePref(inFemale, inMale, sizeL)
     myStack = []
@@ -116,8 +113,10 @@ def matchGenerator(mL,fL, size):
 
 
 def main():
+    start = time.time()
     with open('names.txt') as f:
         lines = f.read().splitlines()
+        #reads file of names into list. Ordered male first then female first
     size = (len(lines)/2)
     mL = []
     fL = []
@@ -126,10 +125,14 @@ def main():
             mL.append(lines[i])
         if(i >= size):
             fL.append(lines[i])
+        #splits list between male and female names
     print(mL)
+    #prints the list of names
     print(fL)
     sizeG = size
     matchGenerator(mL, fL, sizeG)
+    end = time.time()
+    print(end - start)
 
 if __name__ == "__main__":
     main()
